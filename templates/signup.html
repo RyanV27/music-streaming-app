@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.4/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-black h-screen flex flex-col items-center justify-center">
+  <div class="w-full max-w-xs px-6">
+    <div class="mb-10 flex flex-col items-center">
+      <img src="/static/logo.png" alt="Spotify Logo" class="w-20 h-20">
+      <h1 class="text-4xl text-white font-bold mt-2">Fanatics Fortify</h1>
+    </div>
+    <div>
+      <style>h5{color: red;}</style>
+      {% for message in messages%}
+      <h5>{{message}}</h5>
+      {% endfor %}
+    </div>
+
+
+    <form action="" method="POST" class="bg-black">
+      {% csrf_token %}
+      <div class="mb-4">
+        <input class="bg-gray-800 text-white border border-gray-600 rounded py-2 px-4 block w-full appearance-none leading-normal" type="text" name="username" placeholder="Username">
+      </div>
+      <div class="mb-4">
+        <input class="bg-gray-800 text-white border border-gray-600 rounded py-2 px-4 block w-full appearance-none leading-normal" type="email" name="email" placeholder="Email">
+      </div>
+      <div class="mb-6">
+        <input class="bg-gray-800 text-white border border-gray-600 rounded py-2 px-4 block w-full appearance-none leading-normal" type="password" name="password" placeholder="Password">
+      </div>
+      <div class="mb-6">
+        <input class="bg-gray-800 text-white border border-gray-600 rounded py-2 px-4 block w-full appearance-none leading-normal" type="password" name="password2" placeholder="Repeat Password">
+      </div>
+      <div style="display: flex; margin-left: auto; margin-right: auto; gap: 1rem;" class="mb-6 w-full">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <input class="bg-gray-800" type="radio" id="user" name="isArtist" value="false">
+            <label class="text-white" for="user">User</label>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <input class="bg-gray-800" type="radio" id="artist" name="isArtist" value="true">
+            <label class="text-white" for="artist">Artist</label>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mb-4">Register</button>
+        <p class="text-center text-gray-400 text-xs">
+            Already have an account? <a href="#" class="text-green-500">Sign in</a>
+        </p>
+    </div>
+    </form>
+  </div>
+</body>
+</html>

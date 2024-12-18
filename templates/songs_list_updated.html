@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fanatics Fortify Songs</title>
+    <script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=l5y7mLNel9NKhDfuyZ5wQNCtDK51oh0J-eJbO1mbHFAk5uLyKKXUK7tNHRQdenKvowP2ErgB_4NBmA78ncLoSmE27-aXq_95z5l1qxTguVABkNhYZ2GDuj_PbsOCG-p2DwzSM3RmyPY7_2cgsDUA9qEtGL_biHJ6kUoHRuo-9bz650OhnL2CTXDIZ2LKJjg3f1Qlx-OnbXZQ30W_ZAijx0UDSh3ABCw_fi5jFsUzPRNO7_UJXswhL-c0S91w8YbWW6EXjjnPCNuN_H1BqYsj9Q" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://me.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9jZG4uZGlzY29yZGFwcC5jb20vYXR0YWNobWVudHMvMTI4OTk5ODQyMzgzNTI4MzUwOS8xMzEyOTQyNTE3NDUyNDA2Nzg0L3NvbmdzX2xpc3QuaHRtbD9leD02NzRlNTQ4MSZpcz02NzRkMDMwMSZobT04YzBhN2VkZTVhZTAxZjA1NDgyOTMxOTExMzg1NmJkMTE0M2ZmMDgxYjU0ZDFjOWIxZmE0ZWUyMDY5OTMyNGJlJg"/><style>
+        body {
+            background-color: #121212;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .header {
+            background-color: #1db954;
+            color: #121212;
+            padding: 15px;
+            width: 100%;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .song-list {
+            width: 80%;
+            max-width: 900px;
+            margin-top: 20px;
+        }
+        .song-item {
+            background-color: #181818;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        .song-item:hover {
+            background-color: #333;
+        }
+        .song-link {
+            color: #1db954;
+            font-size: 18px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .song-link:hover {
+            color: #1ed760;
+        }
+        .error-message {
+            color: red;
+            font-size: 18px;
+            text-align: center;
+
+        }
+    </style>
+
+<style>
+    .player {
+        background-color: #1DB954; /* Spotify green background */
+        padding: 20px;
+        border-radius: 10px; /* Rounded corners */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 400px;
+        margin: auto;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Light shadow for depth */
+    }
+
+    #audio-player {
+        width: 100%; /* Make the player full width */
+        color: #FFFFFF; /* White controls text */
+    }
+
+    #audio-player::-webkit-media-controls-panel {
+        background-color: #FFFFFF; /* White background for controls */
+        color: #1DB954; /* Green text for controls */
+    }
+
+    #audio-player::-webkit-media-controls-play-button,
+    #audio-player::-webkit-media-controls-pause-button {
+        color: #1DB954; /* Green play/pause button */
+    }
+
+    .player:hover {
+        background-color: #1ED760; /* Slightly lighter green on hover */
+        transition: background-color 0.3s ease;
+    }
+</style>
+
+
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="{% url 'index' %}" style="text-decoration: none; color: inherit;">Fortify Song List</a>
+        </div>
+          
+    
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% else %}
+            <div class="song-list">
+                {% for song in songs %}
+                    <div class="song-item">
+                        <!-- Clickable song name that plays in the audio player -->
+                        <p class="song-link" data-src="{{ song.song_url }}">{{ song.song_name }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- Audio player to play the selected song -->
+            <div class="player">
+                <audio id="audio-player" controls>
+                    <source src="" id="audio-source">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        {% endif %}
+    </div>
+    
+    <script>
+        // Get all song items and the audio player
+        const songLinks = document.querySelectorAll('.song-link');
+        const audioPlayer = document.getElementById('audio-player');
+        const audioSource = document.getElementById('audio-source');
+    
+        // Add click event listener to each song item
+        songLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                const songSrc = this.getAttribute('data-src'); // Get song URL
+                audioSource.src = songSrc; // Set audio source
+                audioPlayer.load(); // Reload audio player with new source
+                audioPlayer.play(); // Start playing
+            });
+        });
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Song</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #1f1f1f;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      text-align: center;
+      color: #1db954;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    select{
+      width: 98%;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      background-color: #333;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    input{
+      width: 95%;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      background-color: #333;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    input[type="file"] {
+      padding: 5px;
+      width: 95%;
+    }
+
+    input:focus, select:focus {
+      outline: 2px solid #1db954;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      background-color: #1db954;
+      color: #fff;
+      font-weight: bold;
+      text-transform: uppercase;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #17a744;
+    }
+
+    .note {
+      font-size: 12px;
+      color: #aaa;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Upload Song</h1>
+    <div>
+        <style>h5{color: red;}</style>
+        {% for message in messages%}
+        <h5>{{message}}</h5>
+        {% endfor %}
+      </div>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+      <div class="form-group">
+        <label for="songName">Song Name</label>
+        <input type="text" id="songName" name="song_name" required>
+      </div>
+      <div class="form-group">
+        <label for="artistId">Artist ID</label>
+        <input type="text" id="artistId" name="artist_id" required>
+      </div>
+      <div class="form-group">
+        <label for="albumId">Album ID</label>
+        <input type="text" id="albumId" name="album_id" required>
+      </div>
+      <div class="form-group">
+        <label for="genre">Genre</label>
+        <select id="genre" name="genre" required>
+          <option value="">Select Genre</option>
+          <option value="Pop">Pop</option>
+          <option value="Rock">Rock</option>
+          <option value="Hip-Hop">Hip-Hop</option>
+          <option value="Classical">Classical</option>
+          <option value="Jazz">Jazz</option>
+          <option value="Electronic">Electronic</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="duration">Duration (in seconds)</label>
+        <input type="number" id="duration" name="duration" required>
+      </div>
+      <div class="form-group">
+        <label for="language">Language</label>
+        <input type="text" id="language" name="language" required>
+      </div>
+      <div class="form-group">
+        <label for="mp3File">Upload MP3 File</label>
+        <input type="file" id="mp3File" name="mp3_file" accept=".mp3" required>
+      </div>
+      <button type="submit" class="btn">Upload</button>
+    </form>
+    <p class="note">Ensure the MP3 file size is less than 10MB.</p>
+  </div>
+</body>
+</html>

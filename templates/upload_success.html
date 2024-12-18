@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #181818;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            background: #282828;
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+        h1 {
+            margin: 0 0 20px;
+            font-size: 24px;
+        }
+        p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #1db954;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .button:hover {
+            background-color: #1aa34a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Song Uploaded Successfully!</h1>
+        <p>"{{ song_name }}" has been added to your library.</p>
+        <a href="/" class="button">Go Back</a>
+    </div>
+</body>
+</html>

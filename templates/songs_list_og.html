@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Clone - Songs</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .header {
+            background-color: #1db954;
+            color: #fff;
+            padding: 15px;
+            width: 100%;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .song-list {
+            width: 80%;
+            max-width: 900px;
+            margin-top: 20px;
+        }
+        .song-item {
+            background-color: #181818;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        .song-item:hover {
+            background-color: #333;
+        }
+        .song-link {
+            color: #1db954;
+            font-size: 18px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .song-link:hover {
+            color: #1ed760;
+        }
+        .error-message {
+            color: red;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Spotify Clone - Song List</div>
+    
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% else %}
+            <div class="song-list">
+                {% for song in songs %}
+                    <div class="song-item">
+                        <!-- Clickable song name that plays in the audio player -->
+                        <p class="song-link" data-src="{{ song.song_url }}">{{ song.song_name }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- Audio player to play the selected song -->
+            <div class="player">
+                <audio id="audio-player" controls>
+                    <source src="" id="audio-source">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        {% endif %}
+    </div>
+    
+    <script>
+        // Get all song items and the audio player
+        const songLinks = document.querySelectorAll('.song-link');
+        const audioPlayer = document.getElementById('audio-player');
+        const audioSource = document.getElementById('audio-source');
+    
+        // Add click event listener to each song item
+        songLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                const songSrc = this.getAttribute('data-src'); // Get song URL
+                audioSource.src = songSrc; // Set audio source
+                audioPlayer.load(); // Reload audio player with new source
+                audioPlayer.play(); // Start playing
+            });
+        });
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortify - Playlists</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .header {
+            background-color: #1db954;
+            color: #fff;
+            padding: 15px;
+            width: 100%;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .playlist-list {
+            width: 80%;
+            max-width: 900px;
+            margin-top: 20px;
+        }
+        .playlist-item {
+            background-color: #181818;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        .playlist-item:hover {
+            background-color: #333;
+        }
+        .playlist-link {
+            color: #1db954;
+            font-size: 18px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .playlist-link:hover {
+            color: #1ed760;
+        }
+        .create-playlist {
+            margin: 20px 0;
+        }
+        .create-playlist input {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            margin-right: 10px;
+        }
+        .create-playlist button {
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #1db954;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .create-playlist button:hover {
+            background-color: #1ed760;
+        }
+        .delete-button {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .delete-button:hover {
+            background-color: #c0392b;
+        }
+        .back-button {
+            color: #1db954;
+            text-decoration: none;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .back-button:hover {
+            color: #1ed760;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">{{ username }}'s Playlists</div>
+
+        <!-- Display Django messages -->
+        {% if messages %}
+            <script>
+                {% for message in messages %}
+                    alert("{{ message }}");
+                {% endfor %}
+            </script>
+        {% endif %}
+
+        <!-- Form to create a new playlist -->
+        <div class="create-playlist">
+            <form action="/playlists/create" method="post">
+                {% csrf_token %}
+                <input type="text" name="playlist_name" placeholder="New Playlist Name" required>
+                <button type="submit">Create Playlist</button>
+            </form>
+        </div>
+
+        <!-- List of playlists -->
+        <div class="playlist-list">
+            {% for playlist in playlists %}
+            <div class="playlist-item">
+                <span class="playlist-link">{{ playlist.playlist_name }}</span>
+                <div>
+                    <!-- Link to view songs in the playlist -->
+                    <a href="/playlists/{{ playlist.playlist_name }}" class="playlist-link">View Songs</a>
+                    <!-- Form to delete a playlist -->
+                    <form action="/playlists/delete" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="playlist_name" value="{{ playlist.playlist_name }}">
+                        <button type="submit" class="delete-button">Delete</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Back Button -->
+        <a href="/" class="back-button">Back to Main Page</a>
+    </div>
+</body>
+</html>
